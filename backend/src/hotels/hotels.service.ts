@@ -15,39 +15,29 @@ export class HotelsService {
     @InjectModel(Hotel.name) private HotelModel: Model<HotelDocument>,
   ) {}
 
-  //=============================================================
   public async findAll(params: any): Promise<HotelDocument[]> {
-    console.log('serv params', params);
     const { offset, limit, search } = params;
     const qOffset = Number(offset);
     const qLimit = Number(limit);
     const searchString = new RegExp(search === '' ? '.' : search, 'i');
-    // console.log('off', qOffset,'Lim', qLimit,'search', searchString);
-    // { name: searchString }
     const data = await this.HotelModel.find({ title: searchString })
       .skip(qOffset * qLimit)
       .limit(qLimit + 1)
       .exec();
-    // console.log('data', data);
     return data;
   }
 
-  //=============================================================
   public hotelById(id: string): Promise<HotelDocument> {
     console.log('SERVISE findOne', id);
     return this.HotelModel.findById(id).exec();
   }
 
-  //=============================================================
   public async create(
     files: any[],
     body: INewHotelBodyDto,
   ): Promise<ICreateHotelDto> {
-    // Настройка пути
     const picsFolder = '/public/hotels';
     const folder = join(__dirname, '..', '..', picsFolder);
-    // console.log(folder);
-    // Проверка наличия папки
     try {
       await access(folder);
     } catch (e) {

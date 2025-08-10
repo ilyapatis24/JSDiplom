@@ -1,10 +1,7 @@
-import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, {
-  Document,
-  Schema as MongooseSchema,
-  ObjectId,
+  Document
 } from 'mongoose';
-import { Message } from './Message.schema';
 import { User } from 'src/users/schemas/user.schema';
 
 export type SupportRequestDocument = SupportRequest & Document;

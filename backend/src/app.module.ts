@@ -7,11 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { HotelsModule } from './hotels/hotels.module';
 import { ChatModule } from './chat/chat.module';
-import { WebsocetsGateway } from './websocets/websocets.gateway';
-
-console.log('==============================================');
-console.log('process.env.MONGO_CONNECTION', process.env.MONGO_CONNECTION);
-console.log('==============================================');
+import { WebSocketsGateway } from './websockets/websockets.gateway';
 
 @Module({
   imports: [
@@ -23,6 +19,6 @@ console.log('==============================================');
     ChatModule,
   ],
   controllers: [AppController],
-  providers: [AppService, WebsocetsGateway],
+  providers: [AppService, WebSocketsGateway],
 })
 export class AppModule {}

@@ -1,8 +1,6 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import mongoose, {
-  Document,
-  Schema as MongooseSchema,
-  ObjectId,
+  Document
 } from 'mongoose';
 import { User } from 'src/users/schemas/user.schema';
 

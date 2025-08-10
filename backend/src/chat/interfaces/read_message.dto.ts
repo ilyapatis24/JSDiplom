@@ -1,3 +1,3 @@
 export interface ReadMessageDto {
-  createdBefore: [string];
+  createdBefore: string[];
 }

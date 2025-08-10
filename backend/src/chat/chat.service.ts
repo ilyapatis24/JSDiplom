@@ -2,13 +2,13 @@ import { Injectable, Post } from '@nestjs/common';
 import {
   SupportRequest,
   SupportRequestDocument,
-} from './schemas/SupportRequest.schema';
+} from './schemas/support_request.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Message, MessageDocument } from './schemas/Message.schema';
-import { SendMessageDto } from './interfaces/SendMessageDto';
+import { Message, MessageDocument } from './schemas/message.schema';
+import { SendMessageDto } from './interfaces/send_message.dto';
 import { User, UserDocument } from 'src/users/schemas/user.schema';
-import { ReadMessageDto } from './interfaces/ReadMessageDTO';
+import { ReadMessageDto } from './interfaces/read_message.dto';
 
 @Injectable()
 export class ChatService {
@@ -19,14 +19,12 @@ export class ChatService {
     @InjectModel(User.name) private UserModel: Model<UserDocument>,
   ) {}
 
-  //============================ Для разработки
   public async delallMessage(): Promise<any> {
     const returnA = await this.SupportRequestModel.deleteMany({});
     const returnB = await this.MessageModel.deleteMany({});
     return returnB;
   }
 
-  //============================
   public async createMessage(body: SendMessageDto): Promise<MessageDocument> {
     const { author, text } = body;
     const newMessage = {
@@ -40,7 +38,6 @@ export class ChatService {
     return returnMessage;
   }
 
-  //============================
   public async getChat(
     params: {
       id: string;
@@ -49,7 +46,6 @@ export class ChatService {
     newMessage: MessageDocument,
   ): Promise<SupportRequestDocument> {
     const { id, author } = params;
-    // Если ID === "newchat" создаем новый, иначе берем по ID
     let returnChat: any;
     let msgs: any;
     if (id === 'newchat') {
@@ -78,24 +74,19 @@ export class ChatService {
     return returnChat;
   }
 
-  //============================
   public async addMessage(
     body: SendMessageDto,
     id: string,
   ): Promise<SupportRequestDocument> {
     const paramsForChat = { id, author: body.author };
-    // Созаем сообщение
     const newMessage = await this.createMessage(body);
-    // Получаем либо создаем Чат
     const currentChat = await this.getChat(paramsForChat, newMessage);
     const newCurrentChat = currentChat;
 
     return newCurrentChat;
   }
 
-  //============================
   public async readMessage(body: ReadMessageDto, id: string): Promise<any> {
-    // console.log('CHAT SERVISE chandeReadAt body=', body.createdBefore);
     const reaadDate = new Date();
     const { createdBefore } = body;
     createdBefore.forEach((i) => {
@@ -116,10 +107,8 @@ export class ChatService {
     };
   }
 
-  //============================
   public async findUserRequest(params): Promise<any> {
     const { id } = params;
-    // console.log('id', params);
     const response = await this.SupportRequestModel.find({ user: id })
       .populate('messages')
       .exec();
@@ -127,18 +116,14 @@ export class ChatService {
     return response;
   }
 
-  //============================
   public async findRequestById(params): Promise<any> {
     const { id } = params;
-    // console.log('id', id);
     const response = await this.SupportRequestModel.findById(id)
       .populate('messages')
       .exec();
 
     return response;
   }
-
-  //============================
 
   public async getUsersFromRequests(): Promise<any> {
     const response = await this.SupportRequestModel.find()
@@ -149,16 +134,3 @@ export class ChatService {
     return response;
   }
 }
-
-//!! === НЕ УДАЛЯТЬ !!!!!!! ===
-// const currentChat = await this.SupportRequestModel.findById(id) //
-//   //.populate('messages')
-//   .populate({
-//     path: 'messages',
-//     model: this.MessageModel,
-//     populate: {
-//       path: 'author',
-//       model: this.UserModel,
-//     },
-//   })
-//   .exec();

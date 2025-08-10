@@ -14,7 +14,7 @@ import { RoomsService } from './rooms.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { RoomDocument } from './schemas/rooms.schema';
 import { INewRoomBodyDto } from './interfaces/dto/new-room-body';
-import { JwtAdmin } from 'src/auth/jwt.auth.admin';
+import { JwtAuthAdminGuard } from 'src/auth/jwt-auth.admin.guard';
 import { IUpdateRoomBodyDto } from './interfaces/dto/update-room';
 import { IParamId } from './interfaces/dto/param-id';
 
@@ -28,14 +28,14 @@ export class RoomsController {
     return this.roomsService.findAll(params);
   }
 
-  @UseGuards(JwtAdmin)
+  @UseGuards(JwtAuthAdminGuard)
   @Get('/admin/hotel-rooms/:id')
   public findOne(@Param() { id }: IParamId): any {
     console.log('CONTROLLER findOne', id);
     return this.roomsService.roomById(id);
   }
 
-  @UseGuards(JwtAdmin)
+  @UseGuards(JwtAuthAdminGuard)
   @Post('/admin/hotel-rooms')
   @UseInterceptors(FilesInterceptor('files'))
   public create(
@@ -45,7 +45,7 @@ export class RoomsController {
     return this.roomsService.create(files, body);
   }
 
-  @UseGuards(JwtAdmin)
+  @UseGuards(JwtAuthAdminGuard)
   @Put('/admin/hotel-rooms/:id')
   @UseInterceptors(FilesInterceptor('files'))
   public update(

@@ -27,13 +27,10 @@ export class RoomsService {
       .exec();
   }
 
-  //=============================================================
   public roomById(id: string): Promise<RoomDocument> {
-    console.log('SERVISE findOne', id);
     return this.RoomModel.findById(id).exec();
   }
 
-  //====================================
   public async create(
     files: any[],
     body: INewRoomBodyDto,
@@ -57,13 +54,13 @@ export class RoomsService {
           !['png', 'jpg', 'jpeg', 'webp'].includes(fileExtension)
         ) {
           console.log(
-            `Файл${file.originalname} не я вляется изображением или имеет не допустимый формат`,
+            `Файл${file.originalname} не является изображением или имеет не допустимый формат`,
           );
           return;
         }
         const newFileName = `onserv-${uuidv4()}.${fileExtension}`;
         try {
-          await writeFile(join(folder, newFileName), file.buffer); // video 3:43 and 2.26
+          await writeFile(join(folder, newFileName), file.buffer);
         } catch (error) {
           console.log('ERROR WRITE files', error.message);
         }
@@ -86,7 +83,6 @@ export class RoomsService {
     return room;
   }
 
-  //======================================
   public async update(
     id: string,
     files: any[],
@@ -95,8 +91,6 @@ export class RoomsService {
     console.log('ROOM SERVISE update', id);
     const picsFolder = '/public/rooms';
     const folder = join(__dirname, '..', '..', picsFolder);
-    // console.log(folder);
-    // Проверка наличия папки
     try {
       await access(folder);
     } catch (e) {
@@ -117,7 +111,7 @@ export class RoomsService {
             !['png', 'jpg', 'jpeg', 'webp'].includes(fileExtension)
           ) {
             console.log(
-              `Файл${file.originalname} не я вляется изображением или имеет не допустимый формат`,
+              `Файл${file.originalname} не является изображением или имеет не допустимый формат`,
             );
             return;
           }
@@ -125,7 +119,7 @@ export class RoomsService {
           // Запись файла на сервер
           newFileName = `onserv-${uuidv4()}.${fileExtension}`;
           try {
-            await writeFile(join(folder, newFileName), file.buffer); // video 3:43 and 2.26
+            await writeFile(join(folder, newFileName), file.buffer);
           } catch (error) {
             console.log('ERROR WRITE files', error.message);
           }

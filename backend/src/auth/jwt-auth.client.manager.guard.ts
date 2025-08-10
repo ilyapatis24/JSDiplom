@@ -7,20 +7,18 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class JwtManager extends AuthGuard('jwt') {
+export class JwtAuthClientManagerGuard extends AuthGuard('jwt') {
   canActivate(context: ExecutionContext) {
-    // Add your custom authentication logic here
-    // for example, call super.logIn(request) to establish a session.
     return super.canActivate(context);
   }
 
-  handleRequest(err, user, info) {
-    // You can throw an exception based on either "info" or "err" arguments
+  handleRequest(err: any, user: any, info: any) {
+    const roles = ['client', 'manager'];
     if (!user) {
       throw new UnauthorizedException('Пользователь не авторизован.');
-    } else if (user && user.role !== 'manager') {
+    } else if (user && !roles.includes(user.role)) {
       throw new ForbiddenException(
-        'Пользователю запрещено выполнять этот запросю',
+        'Роль пользователя должна быть client или manager!',
       );
     }
     return user;

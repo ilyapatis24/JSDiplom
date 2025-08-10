@@ -1,5 +1,5 @@
 import { User } from '../schemas/user.schema';
-import { IParamId } from './param-id';
+import { IParamId } from './param_id';
 
 export interface IUserService {
   create(data: Partial<User>): Promise<User>;

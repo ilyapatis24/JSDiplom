@@ -11,25 +11,25 @@ import { Socket, Server } from 'socket.io';
     origin: '*',
   },
 })
-export class WebsocetsGateway {
+export class WebSocketsGateway {
   @WebSocketServer()
   server: Server;
 
   onModuleInit() {
-    this.server.on('connection', (socet) => {
-      // console.log('server on', socet.id);
-      // console.log('Connected');
+    this.server.on('connection', (socket) => {
+      console.log('server on', socket.id);
+      console.log('Connected');
     });
 
-    this.server.off('connection', (socet) => {
-      // console.log('server off', socet.id);
-      // console.log('DisConnected');
+    this.server.off('connection', (socket) => {
+      console.log('server off', socket.id);
+      console.log('Disconnected');
     });
   }
 
   @SubscribeMessage('clientToManager')
   handleMessageToManager(@MessageBody() body: any): any {
-    body.func = 'clientToManager'; // Для отладки
+    body.func = 'clientToManager';
     const messageClientName = `serverToClient${body.clientId}`;
     this.server.emit(messageClientName, body);
     this.server.emit('serverToManager', body);
@@ -38,7 +38,7 @@ export class WebsocetsGateway {
 
   @SubscribeMessage('managerToClient')
   handleMessageToClient(@MessageBody() body: any): string {
-    body.func = 'managerToClient'; // Для отладки
+    body.func = 'managerToClient';
     const messageClientName = `serverToClient${body.clientId}`;
     this.server.emit(messageClientName, body);
     this.server.emit('serverToManager', body);
@@ -47,14 +47,14 @@ export class WebsocetsGateway {
 
   @SubscribeMessage('clientReadMessage')
   clientReadMessage(@MessageBody() body: any): string {
-    body.func = 'clientReadMessage'; // Для отладки
+    body.func = 'clientReadMessage';
     this.server.emit('serverToManager', body);
     return 'clientReadMessage';
   }
 
   @SubscribeMessage('managerReadMessage')
   managerReadMessage(@MessageBody() body: any): string {
-    body.func = 'managerToClient'; // Для отладки
+    body.func = 'managerToClient';
     const messageClientName = `serverToClient${body.clientId}`;
     this.server.emit(messageClientName, body);
     return 'managerReadMessage';

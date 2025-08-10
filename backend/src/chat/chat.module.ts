@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ChatController } from './chat.controller';
 import { ChatService } from './chat.service';
-import { Message, MessageSchema } from './schemas/Message.schema';
+import { Message, MessageSchema } from './schemas/message.schema';
 import {
   SupportRequest,
   SupportRequestSchema,
-} from './schemas/SupportRequest.schema';
+} from './schemas/support_request.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/users/schemas/user.schema';
 
