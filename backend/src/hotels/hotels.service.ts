@@ -5,9 +5,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { access, mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import { ICreateHotelDto } from './interfaces/dto/create-hotel';
-import { IUpdateHotelDto } from './interfaces/dto/update-hotel';
-import { INewHotelBodyDto } from './interfaces/dto/new-hotel-body';
+import { ICreateHotelDto } from './interfaces/dto/create-hotel.dto';
+import { IUpdateHotelDto } from './interfaces/dto/update-hotel.dto';
+import { INewHotelBodyDto } from './interfaces/dto/new-hotel-body.dto';
 
 @Injectable()
 export class HotelsService {
@@ -53,13 +53,13 @@ export class HotelsService {
           !['png', 'jpg', 'jpeg', 'webp'].includes(fileExtension)
         ) {
           console.log(
-            `Файл${file.originalname} не я вляется изображением или имеет не допустимый формат`,
+            `Файл${file.originalname} не является изображением или имеет недопустимый формат`,
           );
           return;
         }
         const newFileName = `onserv-${uuidv4()}.${fileExtension}`;
         try {
-          await writeFile(join(folder, newFileName), file.buffer); // video 3:43 and 2.26
+          await writeFile(join(folder, newFileName), file.buffer);
         } catch (error) {
           console.log('ERROR WRITE files', error.message);
         }
@@ -80,7 +80,6 @@ export class HotelsService {
     return hotel;
   }
 
-  //=======================================
   public async update(
     id: string,
     files: any[],
@@ -88,7 +87,7 @@ export class HotelsService {
   ): Promise<HotelDocument> {
     const picsFolder = '/public/hotels';
     const folder = join(__dirname, '..', '..', picsFolder);
-    // console.log(folder);
+
     // Проверка наличия папки
     try {
       await access(folder);
@@ -118,7 +117,7 @@ export class HotelsService {
           // Запись файла на сервер
           newFileName = `onserv-${uuidv4()}.${fileExtension}`;
           try {
-            await writeFile(join(folder, newFileName), file.buffer); // video 3:43 and 2.26
+            await writeFile(join(folder, newFileName), file.buffer);
           } catch (error) {
             console.log('ERROR WRITE files', error.message);
           }
@@ -134,13 +133,12 @@ export class HotelsService {
       title: body.title,
       description: body.description,
       updatedAt: new Date(),
-      files: JSON.stringify(resWriteFIles),
+      files: JSON.stringify(resWriteFIles)
     };
 
     return this.HotelModel.findOneAndUpdate({ _id: id }, newHotel);
   }
 
-  //=============================================================
   public delete(id: string): Promise<HotelDocument> {
     return this.HotelModel.findOneAndDelete({ _id: id });
   }

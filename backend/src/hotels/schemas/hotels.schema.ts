@@ -16,7 +16,7 @@ export class Hotel {
 
   @Prop({ required: true })
   public updatedAt: Date;
-
+  
   @Prop()
   public files: string;
 }
