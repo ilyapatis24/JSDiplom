@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  actHotelsPics,
+  actHotelsImages,
   actUserError,
 } from "../../store/actions/actionCreators";
-import EXIF from "exif-js";
 import WinError from "../Error";
 
 export default function AddHotelPics() {
@@ -103,7 +102,7 @@ export default function AddHotelPics() {
                   message: errMessage,
                 }),
               );
-              dispatch(actHotelsPics(preArray));
+              dispatch(actHotelsImages(preArray));
             }
           }
         });

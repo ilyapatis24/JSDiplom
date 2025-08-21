@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { hotelByIdSearch } from "../../store/api/hotels/hotelByIdSearch.js";
 import { useDispatch, useSelector } from "react-redux";
 import AddHotelPics from "./AddHotelPics";
-import { actHotelsPics } from "../../store/actions/actionCreators";
+import { actHotelsImages } from "../../store/actions/actionCreators";
 import { hotelsUpdate } from "../../store/api/hotels/hotelsUpdate.js";
 
 export default function EditHotel() {
@@ -42,7 +42,7 @@ export default function EditHotel() {
         const file = new File([blob], i.name);
         arrTemp.push(file);
         if (arrPicsFromBack.length === arrTemp.length) {
-          dispatch(actHotelsPics(arrTemp));
+          dispatch(actHotelsImages(arrTemp));
         }
       });
     };
@@ -94,7 +94,7 @@ export default function EditHotel() {
 
   //================================================
   function clearAll() {
-    dispatch(actHotelsPics([]));
+    dispatch(actHotelsImages([]));
     setTitle("");
     setDescription("");
   }

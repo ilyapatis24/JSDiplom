@@ -1,9 +1,11 @@
-FROM node:20.16-alpine
+FROM node:22.18.0-alpine
 
 WORKDIR /backend
 
-COPY . .
+COPY package*.json .
 
 RUN npm install
+
+COPY . .
 
 CMD ["npm", "run", "start"]

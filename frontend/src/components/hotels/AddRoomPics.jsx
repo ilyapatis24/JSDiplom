@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actRoomsPics, actUserError } from "../../store/actions/actionCreators";
+import { actRoomsImages, actUserError } from "../../store/actions/actionCreators";
 import WinError from "../Error";
 
 export default function AddRoomPics() {
@@ -93,7 +93,7 @@ export default function AddRoomPics() {
                   message: errMessage,
                 }),
               );
-              dispatch(actRoomsPics(preArray));
+              dispatch(actRoomsImages(preArray));
             }
           }
         });
@@ -129,12 +129,12 @@ export default function AddRoomPics() {
     e.target.style.border = "3px solid white";
     const tempArray = [...roomsPics];
     tempArray.splice(idxTo, 0, tempArray.splice(idxFrom, 1)[0]);
-    dispatch(actRoomsPics(tempArray));
+    dispatch(actRoomsImages(tempArray));
   }
 
   function fnRemovePics(index) {
     console.log("Удаляем индекс=", index);
-    dispatch(actRoomsPics(roomsPics.filter((i, arrIdx) => arrIdx !== index)));
+    dispatch(actRoomsImages(roomsPics.filter((i, arrIdx) => arrIdx !== index)));
   }
 
   //=====================================
