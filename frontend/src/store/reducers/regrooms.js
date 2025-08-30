@@ -8,7 +8,7 @@ import {
 } from "../actions/actionTypes";
 
 const initialState = {
-  regRooms: null,
+  regRooms: [],
   addRegRooms: false,
   loading: false,
   error: null,

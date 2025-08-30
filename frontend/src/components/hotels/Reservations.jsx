@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actRegRoomsDelete } from "../../store/actions/actionCreators";
 import ReservationsItems from "./ReservationsItems";
@@ -15,7 +14,7 @@ export default function Reservations() {
   return (
     <>
       <div className="hotels-header">
-        <h1>Забронировые номера:</h1>
+        <h1>Забронированные номера:</h1>
       </div>
       {regRooms.length < 1 && (
         <h2 style={{ color: "red", fontSise: "20px" }}>

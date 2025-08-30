@@ -1,27 +1,28 @@
-connection = new Mongo();
-db = connection.getDB('booking');
+conn = new Mongo();
+db = conn.getDB('booking');
+
 db.users.insert({
   email: 'admin@mail.ru',
-  passwordHash: '$2b$10$KlNjMFWBbV8inTvcC/BSguRYIXEpPMPd6gnYxiYZUjeVz90S0.M.K',
+  passwordHash: '$2b$10$gZDjbdOxxlseV2iih3S/Bue9mrkSWEjQIF/IY/Z.Hgg1Erki1lfxi',
   name: 'Admin',
   contactPhone: '+79115464012',
-  role: 'admin',
+  role: 'admin'
 });
 
 db.users.insert({
   email: 'manager@mail.ru',
-  passwordHash: '$2b$10$mQvNMAKPS3GYSgjILwXdFuIzDUHmC9mwWE./WHFX/7dLQPQHgKjrO',
+  passwordHash: '$2b$10$92Y8Oe8fKdmtH93Dfk9/nuYAFSoqcmPI1yFQ/uvHTR8x5hseNXcvK',
   name: 'Manager',
   contactPhone: '+79315121243',
-  role: 'manager',
+  role: 'manager'
 });
 
 db.users.insert({
   email: 'client@mail.ru',
-  passwordHash: '$2b$10$DmuAYiojMrS1nTEyLuQ5o.L5pSdY0BGmps9GfIYe3Ogl5aHuv/p/i',
+  passwordHash: '$2b$10$PBe97TUuCnCUVJn4hvgDUubiLQc4Jet.FUBihEdcrVwEeozlKwNHS',
   name: 'Client',
   contactPhone: '+79065440113',
-  role: 'client',
+  role: 'client'
 });
 
 db.hotels.insert({

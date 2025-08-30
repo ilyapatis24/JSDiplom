@@ -1,6 +1,6 @@
 services:
-  mongodb:
-    image: mongo:4.4.7-focal
+  mongo:
+    image: mongodb/mongodb-community-server
     ports:
       - 27017:27017
     volumes:
@@ -12,9 +12,9 @@ services:
   backend:
     build: ./backend
     depends_on:
-      - mongodb
+      - mongo
     volumes:
-      - ./backend:/backend
+      - backend:/backend
     env_file:
       - ./.env.backend
     ports:
@@ -26,7 +26,7 @@ services:
     env_file:
       - ./.env.frontend
     ports:
-      - 5173:5173
+      - 3000:3000
 volumes:
   backend:
   mongo_volume:

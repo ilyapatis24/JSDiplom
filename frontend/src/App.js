@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
 import Home from "./components/Home";
+import Page404 from "./components/Page404";
+import Layout from "./components/Layout";
 import Signup from "./components/users/Signup";
 import Login from "./components/users/Login";
 import Users from "./components/users/Users";
@@ -14,14 +15,12 @@ import RoomsView from "./components/hotels/RoomsView";
 import Reservations from "./components/hotels/Reservations";
 import ManagerChat from "./components/chats/ManagerChat";
 import MgrReservations from "./components/hotels/MgrReservations";
-import Page404 from "./components/Page404";
 import EditHotel from "./components/hotels/EditHotel";
 import EditRoom from "./components/hotels/EditRoom";
 import "./App.css";
 
 function App() {
   return (
-    <>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -45,7 +44,6 @@ function App() {
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
-    </>
   );
 }
 

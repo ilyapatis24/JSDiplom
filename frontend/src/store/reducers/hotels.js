@@ -9,7 +9,7 @@ const initialState = {
   hotels: [],
   loading: false,
   error: null,
-  hotelsImages: [],
+  hotelsPics: [],
 };
 
 export default function reducerHotelsList(state = initialState, action) {

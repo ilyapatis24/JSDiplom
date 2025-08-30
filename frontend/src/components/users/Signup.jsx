@@ -73,7 +73,7 @@ export default function Signup() {
       <main className="mainpage">
         <div className="home flex-col">
           <div className="cl-black">
-            <h1 className="title-login">Регестрация</h1>
+            <h1 className="title-login">Регистрация</h1>
           </div>
           <form className="flex-col">
             <div className="pol">
