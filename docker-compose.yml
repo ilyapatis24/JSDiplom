@@ -1,6 +1,6 @@
 services:
   mongo:
-    image: mongodb/mongodb-community-server
+    image: mongo:4.4.7-focal
     ports:
       - 27017:27017
     volumes:

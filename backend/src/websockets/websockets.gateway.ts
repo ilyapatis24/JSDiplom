@@ -6,11 +6,12 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 
-@WebSocketGateway(4000, {
+@WebSocketGateway(4001, {
   cors: {
-    origin: 'http://localhost'
+    origin: '*'
   }
 })
+
 export class WebSocketsGateway {
   @WebSocketServer()
   server: Server;
